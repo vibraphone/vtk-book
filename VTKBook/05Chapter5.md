@@ -236,11 +236,23 @@ Texture coordinates are used to map a point from Cartesian space into a 1-, 2-, 
 
 One application of texturing in two dimensions is to "paste" a photograph onto one or more polygons, yielding a detailed image without a large number of graphics primitives. (Texture mapping is covered in more detail in [Chapter 7 - Advanced Computer Graphics](07Chapter7).)
 
+### Tangents
+
+Tangents are direction vectors (i.e., they should be unit length) like normal vectors except that they point in a direction tangent (rather than normal) to the surface. If both tangent and normal vectors are present, they should be perpendicular to one another and can be used to define a full coordinate frame at each point. These are often used for physics-based rendering of surfaces whose interaction with light is not symmetric about the normal vector (i.e., where reflectivity and refractivity are functions of the angle of incoming light with respect to both the normal and tangent axes).
+
 ### Tensors
 
 Tensors are complex mathematical generalizations of vectors and matrices. A tensor of rank k can be considered a k-dimensional table. A tensor of rank 0 is a scalar, rank 1 is a vector, rank 2 is a matrix, and a tensor of rank 3 is a three-dimensional rectangular array. Tensors of higher rank are k-dimensional rectangular arrays.
 
 General tensor visualization is an area of current research. Efforts thus far have been focused on two-dimensional, rank 2 tensors, which are 3 x 3 matrices. The most common form of such tensors are the stress and strain tensors, which represent the stress and strain at a point in an object under load. VTK only treats real-valued, symmetric 3 x 3 tensors.
+
+### Global IDs
+
+Global IDs should mark a point or cell aith a number that is not repeated anywhere else in the dataset (and if the dataset is distributed across multiple processes or divided into pieces, the ID should not be present in any of these). Readers often produce global IDs and filters that do not split a cell (or point) into multiple output cells (or points) should preserve global IDs. Filters that do split cells (or points) should never pass global IDs from the input (because of the possibility of duplicate IDs). Compare global IDs with pedigree IDs below.
+
+### Pedigree IDs
+
+Pedigree IDs track the provenance of a point or cell across a single filter, from its input to its output. Points and cells in VTK data objects have an implicit numbering, starting at 0. If a filter produces pedigree IDs on its output, then each value in the array identifies the cell (or point) from which the corresponding output cell (or point) originated. Since filters can produce many output cells (or points) from a single input cell (or point), many output cells (points) may have the same value in the pedigree ID array. Contrast this with global IDs which must never have cells (points) with identical values. Not all filters are capable of providing pedigree IDs; sources (which have no input data) will not, nor will filters where many input cells (points) may contribute to a single output cell (point) – though in the latter case it is possible that a filter may arbitrarily choose one of the contributing cells (points) and report it.
 
 ## 5.6 Types of Datasets
 
