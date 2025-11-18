@@ -248,7 +248,7 @@ Tangents are direction vectors (i.e., they should be unit length) like normal ve
 
 ### Edge Flags
 
-When a nonlinear surface is subdivided into multiple triangles or quadrilaterals for rendering, cells can be marked with an edge flag indicating which edges bound the original curved cell and which edges are simply artifacts of the subdivision that approximates the surface. These are used by renderers to show the original cell edges by coloring fragments only near marked edges of triangles rather than all triangle edges.
+When a nonlinear surface is subdivided into multiple primitives (triangles or quadrilaterals) for rendering, cells can be marked with an edge flag indicating which edges of those primitives bound the original curved cell and which edges are simply artifacts of the subdivision that approximates the surface. These are used by renderers to show the original cell edges by coloring fragments only near marked edges rather than all the edges of the primitive.
 
 ### Global IDs
 
