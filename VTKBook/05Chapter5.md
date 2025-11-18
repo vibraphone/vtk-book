@@ -226,6 +226,12 @@ Scalar data is data that is single valued at each location in a dataset. Example
 
 Vector data is data with a magnitude and direction. In three dimensions this is represented as a triplet of values (u, v, w). Examples of vector data include flow velocity, particle trajectory, wind motion, and gradient function.
 
+### Tensors
+
+Tensors are complex mathematical generalizations of vectors and matrices. A tensor of rank k can be considered a k-dimensional table. A tensor of rank 0 is a scalar, rank 1 is a vector, rank 2 is a matrix, and a tensor of rank 3 is a three-dimensional rectangular array. Tensors of higher rank are k-dimensional rectangular arrays.
+
+General tensor visualization is an area of current research. Efforts thus far have been focused on two-dimensional, rank 2 tensors, which are 3 x 3 matrices. The most common form of such tensors are the stress and strain tensors, which represent the stress and strain at a point in an object under load. VTK only treats real-valued, symmetric 3 x 3 tensors.
+
 ### Normals
 
 Normals are direction vectors: that is, they are vectors of magnitude |n|=1. Normals are often used by the graphics system to control the shading of objects. Normals also may be used by some algorithms to control the orientation or generation of cell primitives, such as creating ribbons from oriented lines.
@@ -239,12 +245,6 @@ One application of texturing in two dimensions is to "paste" a photograph onto o
 ### Tangents
 
 Tangents are direction vectors (i.e., they should be unit length) like normal vectors except that they point in a direction tangent (rather than normal) to the surface. If both tangent and normal vectors are present, they should be perpendicular to one another and can be used to define a full coordinate frame at each point. These are often used for physics-based rendering of surfaces whose interaction with light is not symmetric about the normal vector (i.e., where reflectivity and refractivity are functions of the angle of incoming light with respect to both the normal and tangent axes).
-
-### Tensors
-
-Tensors are complex mathematical generalizations of vectors and matrices. A tensor of rank k can be considered a k-dimensional table. A tensor of rank 0 is a scalar, rank 1 is a vector, rank 2 is a matrix, and a tensor of rank 3 is a three-dimensional rectangular array. Tensors of higher rank are k-dimensional rectangular arrays.
-
-General tensor visualization is an area of current research. Efforts thus far have been focused on two-dimensional, rank 2 tensors, which are 3 x 3 matrices. The most common form of such tensors are the stress and strain tensors, which represent the stress and strain at a point in an object under load. VTK only treats real-valued, symmetric 3 x 3 tensors.
 
 ### Global IDs
 
