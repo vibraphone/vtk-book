@@ -224,13 +224,13 @@ Scalar data is data that is single valued at each location in a dataset. Example
 
 ### Vectors
 
-Vector data is data with a magnitude and direction. In three dimensions this is represented as a triplet of values (u, v, w). Examples of vector data include flow velocity, particle trajectory, wind motion, and gradient function.
+Vector data is data with a magnitude and direction. In three dimensions this is represented as a triplet of values (u, v, w). Examples of vector data include flow velocity, particle trajectory, wind motion, and gradient function. Note that if you apply a transform (especially rotation but sometimes also scaling), you may also need to apply the same transform to any vector attributes.
 
 ### Tensors
 
 Tensors are complex mathematical generalizations of vectors and matrices. A tensor of rank k can be considered a k-dimensional table. A tensor of rank 0 is a scalar, rank 1 is a vector, rank 2 is a matrix, and a tensor of rank 3 is a three-dimensional rectangular array. Tensors of higher rank are k-dimensional rectangular arrays.
 
-General tensor visualization is an area of current research. Efforts thus far have been focused on two-dimensional, rank 2 tensors, which are 3 x 3 matrices. The most common form of such tensors are the stress and strain tensors, which represent the stress and strain at a point in an object under load. VTK only treats real-valued, symmetric 3 x 3 tensors.
+General tensor visualization is an area of current research. Efforts thus far have been focused on two-dimensional, rank 2 tensors, which are matrices (and since VTK datasets always use 3-dimensional point coordinates, they are 3x3 matrices). The most common form of such tensors are the stress and strain tensors, which represent the stress and strain at a point (or over a cell) in an object under load. VTK only treats real-valued, symmetric 3 x 3 tensors. Note that if you apply a transform (especially rotation but sometimes also scaling), you may also need to apply the same transform to any tensor attributes. Rank 2 tensor data is frequently decomposed using singular value decomposition (SVD) into eigenvalues and eigenvectors to identify the principale axes along which the tensor field changes and to classify regions where a field such as stress or strain has a constant gradient flow (i.e., is positive definite, negative definite, or semidefinite).
 
 ### Normals
 
