@@ -246,6 +246,10 @@ One application of texturing in two dimensions is to "paste" a photograph onto o
 
 Tangents are direction vectors (i.e., they should be unit length) like normal vectors except that they point in a direction tangent (rather than normal) to the surface. If both tangent and normal vectors are present, they should be perpendicular to one another and can be used to define a full coordinate frame at each point. These are often used for physics-based rendering of surfaces whose interaction with light is not symmetric about the normal vector (i.e., where reflectivity and refractivity are functions of the angle of incoming light with respect to both the normal and tangent axes).
 
+### Edge Flags
+
+When a nonlinear surface is subdivided into multiple triangles or quadrilaterals for rendering, cells can be marked with an edge flag indicating which edges bound the original curved cell and which edges are simply artifacts of the subdivision that approximates the surface. These are used by renderers to show the original cell edges by coloring fragments only near marked edges of triangles rather than all triangle edges.
+
 ### Global IDs
 
 Global IDs should mark a point or cell with a number that is not repeated anywhere else in the dataset (and if the dataset is distributed across multiple processes or divided into pieces, the ID should not be present in any of these unless marked as a ghost). Readers often produce global IDs and filters that do not split a cell (or point) into multiple output cells (or points) should preserve global IDs. Filters that do split cells (or points) should never pass global IDs from the input (because of the possibility of duplicate IDs). Compare global IDs with pedigree IDs below.
@@ -257,10 +261,6 @@ Pedigree IDs track the provenance of a point or cell across a single filter, fro
 ### Process IDs
 
 In a distributed-memory dataset, it is sometimes necessary for the same cell (or point) to be present on multiple processes (a.k.a. ranks). When the same data is present in multiple places, a common strategy for communicating changes to it is to assign a single process to be the "owner" of that cell (or point). All other processes will communicate with that process in regard to that cell (or point). A process ID array maps a process ID (rank) to each cell (or point). Negative values (if the array is signed) indicate that the cell (or point) is not shared with other processes. Note that process IDs are information provided as an alternative to ghost arrays, which imply but do not explicitly store the process ID for shared data.
-
-### Edge Flags
-
-When a nonlinear surface is subdivided into multiple triangles or quadrilaterals for rendering, cells can be marked with an edge flag indicating which edges bound the original curved cell and which edges are simply artifacts of the subdivision that approximates the surface. These are used by renderers to show the original cell edges by coloring fragments only near marked edges of triangles rather than all triangle edges.
 
 ### Rational Weights
 
