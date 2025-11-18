@@ -254,6 +254,22 @@ Global IDs should mark a point or cell with a number that is not repeated anywhe
 
 Pedigree IDs track the provenance of a point or cell across a single filter, from its input to its output. Points and cells in VTK data objects have an implicit numbering, starting at 0. If a filter produces pedigree IDs on its output, then each value in the array identifies the cell (or point) number from which the corresponding output cell (or point) originated. Since filters can produce many output cells (or points) from a single input cell (or point), many output cells (points) may have the same value in the pedigree ID array. Contrast this with global IDs which must never have cells (points) with identical values. Not all filters are capable of providing pedigree IDs; sources (which have no input data) will not, nor will filters where many input cells (points) may contribute to a single output cell (point) – though in the latter case it is possible that a filter may arbitrarily choose one of the contributing cells (points) and report it.
 
+### Process IDs
+
+In a distributed-memory dataset, it is sometimes necessary for the same cell (or point) to be present on multiple processes (a.k.a. ranks). When the same data is present in multiple places, a common strategy for communicating changes to it is to assign a single process to be the "owner" of that cell (or point). All other processes will communicate with that process in regard to that cell (or point). A process ID array maps a process ID (rank) to each cell (or point). Negative values (if the array is signed) indicate that the cell (or point) is not shared with other processes. Note that process IDs are information provided as an alternative to ghost arrays, which imply but do not explicitly store the process ID for shared data.
+
+### Edge Flags
+
+When a nonlinear surface is subdivided into multiple triangles or quadrilaterals for rendering, cells can be marked with an edge flag indicating which edges bound the original curved cell and which edges are simply artifacts of the subdivision that approximates the surface. These are used by renderers to show the original cell edges by coloring fragments only near marked edges of triangles rather than all triangle edges.
+
+### Rational Weights
+
+For nonlinear cells that use rational coordinates (i.e., they have an additional coordinate also expressed as a polynomial used as a divisor for all the other coordinates), an array of weights (typically on points) can be stored to hold the additional coordinate. This attribute has evolved because of vtkPoint's hard requirement that point-coordinate arrays have exactly 3 components while rational coordinates require 4 components (X, Y, Z, and W) for 3-dimensional cells.
+
+### Higher Order Degrees
+
+For nonlinear cells, the polynomial order of interpolation may vary along each axis (e.g., a hexahedral cell may be linear along the r-parameter axis, quadratic along the s-parameter axis and cubic along the t-parameter axis). Rather than create a different type of cell for each combination of orders, we can store an array with a tuple for each cell indicating the order along each axis of its parameter-space coordinates. This will determine the number of connectivity entries for the cell. These numbers are kept separate from the connectivity in VTK as many algorithms assume every entry of the connectivity array is an offset into the point-coordinate array.
+
 ## 5.6 Types of Datasets
 
 A dataset consists of an organizing structure plus associated attribute data. The structure has both topological and geometric properties and is composed of one or more points and cells. The type of a dataset is derived from the organizing structure, and specifies the relationship that the cells and points have with one another. Common dataset types are shown in {ref}`Figure 5-7 <Figure-5-7>`.
