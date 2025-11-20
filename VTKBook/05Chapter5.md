@@ -203,7 +203,7 @@ VTK tessellates nonlinear quadratic cells using a fixed subdivision as shown in 
 
 ## 5.5 Attribute Data
 
-Attribute data is information associated with the structure of the dataset. This structure includes both the dataset geometry and topology. Most often, attribute data is associated with dataset points or cells, but sometimes attribute data may be assigned to cell components such as edges or faces. Attribute data may also be assigned across the entire dataset, or across a group of cells or points. We refer to this information as attribute data because it is an attribute to the structure of the dataset. Typical examples include temperature or velocity at a point, mass of a cell, or heat flux into and out of a cell face.
+Attribute data is information associated with the structure of the dataset. This structure includes both the dataset geometry and topology. Most often, attribute data is associated with dataset points or cells, but sometimes attribute data may be assigned to cell components such as edges or faces; or even to graph arcs, graph nodes, or table columns when dealing with non-geometric data. Attribute data may also be assigned across the entire dataset, or across a group of cells or points. We refer to this information as attribute data because it is an attribute to the structure of the dataset. Typical examples include temperature or velocity at a point, mass of a cell, or heat flux into and out of a cell face.
 
 {#Figure-5-6 .figure-target}
 &nbsp;
@@ -238,7 +238,7 @@ Normals are direction vectors: that is, they are vectors of magnitude |n|=1. Nor
 
 ### Texture Coordinates
 
-Texture coordinates are used to map a point from Cartesian space into a 1-, 2-, or 3-dimensional texture space. The texture space is usually referred to as a texture map. Texture maps are regular arrays of color, intensity, and/or transparency values that provide extra detail to rendered objects.
+Texture coordinates are used to map a point from the "world" coordinate space of a dataset into a 1-, 2-, or 3-dimensional texture space (defined as part of reference element). Each corner point of a cell is assigned a 1-, 2-, or 3-tuple of coordinates in the texture space. The texture space (not the texture coordinates, but the space the texture coordinates reference) is referred to as a texture map and is usually rectangular image data, holding arrays of color, intensity, and/or transparency values that provide extra detail to rendered objects.
 
 One application of texturing in two dimensions is to "paste" a photograph onto one or more polygons, yielding a detailed image without a large number of graphics primitives. (Texture mapping is covered in more detail in [Chapter 7 - Advanced Computer Graphics](07Chapter7).)
 
